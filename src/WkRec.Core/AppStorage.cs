@@ -36,6 +36,12 @@ namespace WkRec.Core
             private set;
         }
 
+        public string RegistetredTaskWbssDir
+        {
+            get;
+            private set;
+        }
+
         public string RecordedResultDir
         {
             get;
@@ -53,7 +59,8 @@ namespace WkRec.Core
             this.RootPath = rootPath;
             this.RegisteredTasksDir = Path.Combine(rootPath, "regtasks");
             this.RegisteredTaskSourcesDir = Path.Combine(rootPath, "regtasksources");
-            this.RegisteredTaskCostSourcesDir = Path.Combine(rootPath, "regcostsources");
+            this.RegisteredTaskCostSourcesDir = Path.Combine(rootPath, "regtaskcostsources");
+            this.RegistetredTaskWbssDir = Path.Combine(rootPath, "regtaskwbss");
             this.RecordedResultDir = Path.Combine(rootPath, "recresults");
 
             foreach (var p in new string[]
@@ -98,6 +105,11 @@ namespace WkRec.Core
         public async Task SaveWorkingTaskCostSources(IEnumerable<WorkingTaskCostSource> taskCostSources)
         {
             await WorkingTaskCostSourceSerializer.Instance.SerializeAllTo(this.RegisteredTaskCostSourcesDir, taskCostSources);
+        }
+
+        public async Task<IEnumerable<WorkingWbs>> LoadWorkingWbss()
+        {
+
         }
     }
 }
