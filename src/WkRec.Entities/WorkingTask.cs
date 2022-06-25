@@ -20,10 +20,10 @@ namespace WkRec.Entities
             set;
         }
 
-        public WorkingTaskCollection ChildTasks
+        public WorkingTask[] ChildTasks
         {
             get;
-            private set;
+            set;
         }
 
         public Guid Identifier
@@ -35,24 +35,7 @@ namespace WkRec.Entities
 
         // コンストラクタ
 
-        public WorkingTask(string name, Guid taskSourceIdentifier, IEnumerable<WorkingTask> childTasks)
-        {
-            this.Name = name;
-            this.TaskSourceIdentifier = taskSourceIdentifier;
-            this.Identifier = Guid.NewGuid();
-            
-            this.ChildTasks = new WorkingTaskCollection();
-            this.ChildTasks.AddRange(childTasks);
-        }
-
-        public WorkingTask(string name, Guid taskSourceIdentifier)
-            : this(name, taskSourceIdentifier, new WorkingTask[0])
-        {
-            // NOP
-        }
-
         public WorkingTask()
-            : this(null, Guid.Empty)
         {
             // NOP
         }
