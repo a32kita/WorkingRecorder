@@ -109,7 +109,12 @@ namespace WkRec.Core
 
         public async Task<IEnumerable<WorkingWbs>> LoadWorkingWbss()
         {
+            return await WorkingWbsSerializer.Instance.DeserializeAllFrom(this.RegistetredTaskWbssDir);
+        }
 
+        public async Task SaveWorkingWbss(IEnumerable<WorkingWbs> taskWbss)
+        {
+            await WorkingWbsSerializer.Instance.SerializeAllTo(this.RegistetredTaskWbssDir, taskWbss);
         }
     }
 }
