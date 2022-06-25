@@ -7,7 +7,5 @@ namespace WkRec.Entities
     public interface IWorkingEntity
     {
         Guid Identifier { get; set; }
-
-        bool IdentifierEquals(IWorkingEntity other);
     }
 }

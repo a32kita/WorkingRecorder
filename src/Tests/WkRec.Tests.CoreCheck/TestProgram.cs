@@ -18,12 +18,28 @@ namespace WkRec.Tests.CoreCheck
             var appStorage = new AppStorage(Path.Combine(appDir, "storage"));
 
             var workingTaskSourceIdentifier = Guid.NewGuid();
-            var workingTask = new WorkingTask("親タスク", workingTaskSourceIdentifier, new WorkingTask[]
+            var workingTask = new WorkingTask()
             {
-                new WorkingTask("子タスク 1", workingTaskSourceIdentifier),
-                new WorkingTask("子タスク 2", workingTaskSourceIdentifier),
-                new WorkingTask("子タスク 3", workingTaskSourceIdentifier),
-            });
+                Name = "親タスク",
+                Identifier = Guid.NewGuid(),
+                TaskSourceIdentifier = workingTaskSourceIdentifier,
+                ChildTasks = new WorkingTask[]
+                {
+                    new WorkingTask() { Name = "子タスク 1", Identifier = workingTaskSourceIdentifier },
+                    new WorkingTask() { Name = "子タスク 2", Identifier = workingTaskSourceIdentifier },
+                    new WorkingTask() { Name = "子タスク 3", Identifier = workingTaskSourceIdentifier },
+                    new WorkingTask() {
+                        Name = "子タスク 4",
+                        Identifier = workingTaskSourceIdentifier,
+                        ChildTasks = new WorkingTask[]
+                        {
+                            new WorkingTask() { Name = "孫タスク 1", Identifier = workingTaskSourceIdentifier }
+                        }
+                    },
+                    new WorkingTask() { Name = "子タスク 5", Identifier = workingTaskSourceIdentifier },
+                    new WorkingTask() { Name = "子タスク 6", Identifier = workingTaskSourceIdentifier },
+                }
+            };
 
             appStorage.SaveWorkingTasks(new WorkingTask[] { workingTask }).Wait();
             var loadResult = appStorage.LoadWorkingTasks().Result;
@@ -42,7 +58,10 @@ namespace WkRec.Tests.CoreCheck
         {
             for (var i = 0; i < depth; i++)
                 Console.Write("  ");
-            Console.WriteLine("{0} ({1})", workingTask.Name, workingTask.ChildTasks.Count);
+            Console.WriteLine("{0} ({1})", workingTask.Name, workingTask.ChildTasks?.Length == null ? 0 : workingTask.ChildTasks.Length);
+
+            if (workingTask.ChildTasks == null)
+                return;
 
             foreach (var subWorkingTask in workingTask.ChildTasks)
             {

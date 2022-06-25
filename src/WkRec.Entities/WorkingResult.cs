@@ -29,13 +29,5 @@ namespace WkRec.Entities
             get;
             set;
         }
-
-
-        // 公開メソッド
-
-        public bool IdentifierEquals(IWorkingEntity other)
-        {
-            return this.GetType().Equals(other.GetType()) && this.Identifier.Equals(other.Identifier);
-        }
     }
 }

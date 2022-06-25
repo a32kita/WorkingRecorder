@@ -12,7 +12,7 @@ namespace WkRec.Entities
             set;
         }
 
-        public WorkingCostSource CostSource
+        public Guid CostSourceIdentifier
         {
             get;
             set;

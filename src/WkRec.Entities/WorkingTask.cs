@@ -20,6 +20,12 @@ namespace WkRec.Entities
             set;
         }
 
+        public Guid WbsIdentifier
+        {
+            get;
+            set;
+        }
+
         public WorkingTask[] ChildTasks
         {
             get;
@@ -30,22 +36,6 @@ namespace WkRec.Entities
         {
             get;
             set;
-        }
-
-
-        // コンストラクタ
-
-        public WorkingTask()
-        {
-            // NOP
-        }
-
-
-        // 公開メソッド
-
-        public bool IdentifierEquals(IWorkingEntity other)
-        {
-            return this.GetType().Equals(other.GetType()) && this.Identifier.Equals(other.Identifier);
         }
     }
 }

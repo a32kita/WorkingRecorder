@@ -12,7 +12,7 @@ namespace WkRec.Core
 {
     public class WorkingTaskSerializer : SerializerBase<WorkingTask>
     {
-        public static WorkingTaskSerializer Singleton
+        public static WorkingTaskSerializer Instance
         {
             get;
             private set;
@@ -26,7 +26,7 @@ namespace WkRec.Core
 
         static WorkingTaskSerializer()
         {
-            Singleton = new WorkingTaskSerializer();
+            Instance = new WorkingTaskSerializer();
         }
 
 

@@ -30,7 +30,7 @@ namespace WkRec.Core
             private set;
         }
 
-        public string RegisteredCostSourcesDir
+        public string RegisteredTaskCostSourcesDir
         {
             get;
             private set;
@@ -53,7 +53,7 @@ namespace WkRec.Core
             this.RootPath = rootPath;
             this.RegisteredTasksDir = Path.Combine(rootPath, "regtasks");
             this.RegisteredTaskSourcesDir = Path.Combine(rootPath, "regtasksources");
-            this.RegisteredCostSourcesDir = Path.Combine(rootPath, "regcostsources");
+            this.RegisteredTaskCostSourcesDir = Path.Combine(rootPath, "regcostsources");
             this.RecordedResultDir = Path.Combine(rootPath, "recresults");
 
             foreach (var p in new string[]
@@ -61,7 +61,7 @@ namespace WkRec.Core
                 this.RootPath,
                 this.RegisteredTasksDir,
                 this.RegisteredTaskSourcesDir,
-                this.RegisteredCostSourcesDir,
+                this.RegisteredTaskCostSourcesDir,
                 this.RecordedResultDir
             })
             {
@@ -72,22 +72,32 @@ namespace WkRec.Core
 
         public async Task<IEnumerable<WorkingTask>> LoadWorkingTasks()
         {
-            return await WorkingTaskSerializer.Singleton.DeserializeAllFrom(this.RegisteredTasksDir);
+            return await WorkingTaskSerializer.Instance.DeserializeAllFrom(this.RegisteredTasksDir);
         }
 
         public async Task SaveWorkingTasks(IEnumerable<WorkingTask> tasks)
         {
-            await WorkingTaskSerializer.Singleton.SerializeAllTo(this.RegisteredTasksDir, tasks);
+            await WorkingTaskSerializer.Instance.SerializeAllTo(this.RegisteredTasksDir, tasks);
         }
 
         public async Task<IEnumerable<WorkingTaskSource>> LoadWorkingTaskSources()
         {
-            return await WorkingTaskSourceSerializer.Singleton.DeserializeAllFrom(this.RegisteredTaskSourcesDir);
+            return await WorkingTaskSourceSerializer.Instance.DeserializeAllFrom(this.RegisteredTaskSourcesDir);
         }
 
         public async Task SaveWorkingTaskSources(IEnumerable<WorkingTaskSource> taskSources)
         {
-            await WorkingTaskSourceSerializer.Singleton.SerializeAllTo(this.RegisteredTaskSourcesDir, taskSources);
+            await WorkingTaskSourceSerializer.Instance.SerializeAllTo(this.RegisteredTaskSourcesDir, taskSources);
+        }
+
+        public async Task<IEnumerable<WorkingTaskCostSource>> LoadWorkingTaskCostSources()
+        {
+            return await WorkingTaskCostSourceSerializer.Instance.DeserializeAllFrom(this.RegisteredTaskCostSourcesDir);
+        }
+
+        public async Task SaveWorkingTaskCostSources(IEnumerable<WorkingTaskCostSource> taskCostSources)
+        {
+            await WorkingTaskCostSourceSerializer.Instance.SerializeAllTo(this.RegisteredTaskCostSourcesDir, taskCostSources);
         }
     }
 }

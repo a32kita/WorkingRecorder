@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WkRec.Entities
 {
-    public class WorkingTaskSource : IWorkingEntity
+    public class WorkingTaskCostSource : IWorkingEntity
     {
         public string Name
         {
