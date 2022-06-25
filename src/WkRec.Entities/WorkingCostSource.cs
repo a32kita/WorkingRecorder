@@ -4,8 +4,19 @@ using System.Text;
 
 namespace WkRec.Entities
 {
-    public class WorkingTaskSource : IWorkingEntity
+    public class WorkingCostSource : IWorkingEntity
     {
+        public string Name
+        {
+            get;
+            set;
+        }
+
+        public string Description
+        {
+            get;
+            set;
+        }
 
         public Guid Identifier
         {

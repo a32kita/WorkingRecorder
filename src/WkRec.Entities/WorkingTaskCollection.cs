@@ -13,6 +13,15 @@ namespace WkRec.Entities
         private List<WorkingTask> _items;
 
 
+        // コンストラクタ
+
+        public WorkingTaskCollection()
+        {
+            this._items = new List<WorkingTask>();
+        }
+
+
+
         // 公開プロパティ
 
         public WorkingTask this[int index]
@@ -83,7 +92,7 @@ namespace WkRec.Entities
 
         public IEnumerable<WorkingTask> FindBy(WorkingTaskSource source)
         {
-            return this._items.Where(item => item.TaskSource.Equals(source));
+            return this._items.Where(item => item.TaskSourceIdentifier.Equals(source.Identifier));
         }
 
         IEnumerator IEnumerable.GetEnumerator()
